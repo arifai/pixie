@@ -19,7 +19,7 @@ void main() {
     final Faker faker = Faker();
     final String jwt = faker.jwt.expired();
 
-    test('should save the access token locally and return true', () async {
+    test('should save the access token locally', () async {
       when(() => mockSource.save(any()).run()).thenAnswer((_) async => true);
 
       await repo.save(jwt).run();
@@ -36,7 +36,7 @@ void main() {
       expect(result, equals(right(jwt)));
     });
 
-    test('should remove the access token locally and return true', () async {
+    test('should remove the access token locally', () async {
       when(() => mockSource.remove().run()).thenAnswer((_) async => true);
 
       await repo.remove().run();
@@ -44,7 +44,7 @@ void main() {
       verify(() => mockSource.remove().run());
     });
 
-    test('should save empty string and return false', () async {
+    test('should failed to save empty string', () async {
       when(() => mockSource.save(any()).run()).thenAnswer((_) async => false);
 
       await repo.save('').run();
@@ -52,7 +52,7 @@ void main() {
       verify(() => mockSource.save('').run());
     });
 
-    test('should get the access token but the result is null', () async {
+    test('should failed to get the access token', () async {
       when(() => mockSource.get()).thenAnswer((_) => null);
 
       final result = await repo.get().run();
@@ -61,7 +61,7 @@ void main() {
       expect(result, equals(right(null)));
     });
 
-    test('should remove the access token locally and return false', () async {
+    test('should failed to remove the access token locally', () async {
       when(() => mockSource.remove().run()).thenAnswer((_) async => false);
 
       await repo.remove().run();
