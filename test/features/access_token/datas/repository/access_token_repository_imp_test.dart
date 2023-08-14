@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/features/access_token/datas/repositories/access_token_repository_imp.dart';
+import 'package:pixie/features/access_token/domains/usecases/access_token_usecase.dart';
 
 import '../../../../mocks/access_token/mock_access_token_local_data_source.dart';
 
@@ -17,23 +20,30 @@ void main() {
 
   group('AccessTokenRepositoryImp', () {
     final Faker faker = Faker();
-    final String jwt = faker.jwt.expired();
+    final AccessTokenParams params = AccessTokenParams(
+      accessToken: faker.jwt.expired(),
+      refreshToken: faker.jwt.expired(expiresIn: DateTime.timestamp()),
+    );
+    const AccessTokenParams emptyParams =
+        AccessTokenParams(accessToken: '', refreshToken: '');
 
     test('should save the access token locally', () async {
-      when(() => mockSource.save(any()).run()).thenAnswer((_) async => true);
+      when(() => mockSource.save(params).run()).thenAnswer((_) async => true);
 
-      await repo.save(jwt).run();
+      await repo.save(params).run();
 
-      verify(() => mockSource.save(jwt).run());
+      verify(() => mockSource.save(params).run());
     });
 
     test('should get the access token locally', () async {
-      when(() => mockSource.get()).thenAnswer((_) => jwt);
+      final String encoded = jsonEncode(params.fromMap());
+
+      when(() => mockSource.get()).thenAnswer((_) => encoded);
 
       final result = await repo.get().run();
 
       verify(() => mockSource.get());
-      expect(result, equals(right(jwt)));
+      expect(result, equals(right(encoded)));
     });
 
     test('should remove the access token locally', () async {
@@ -45,11 +55,12 @@ void main() {
     });
 
     test('should failed to save empty string', () async {
-      when(() => mockSource.save(any()).run()).thenAnswer((_) async => false);
+      when(() => mockSource.save(emptyParams).run())
+          .thenAnswer((_) async => false);
 
-      await repo.save('').run();
+      await repo.save(emptyParams).run();
 
-      verify(() => mockSource.save('').run());
+      verify(() => mockSource.save(emptyParams).run());
     });
 
     test('should failed to get the access token', () async {

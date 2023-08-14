@@ -1,0 +1,57 @@
+name: Continuous Integration
+description: Flutter testing & upload coverage to Codecov
+
+on:
+  push: 
+    branches:
+      - main
+      - test
+
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+    steps:
+      - name: Setup Flutter
+        uses: actions/checkout@v3
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17.0.7'
+          cache: 'gradle'
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          cache: true
+          version: '3.7.7'
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run test
+        run: flutter test --coverage
+
+  coverage:
+    if: ${{ always() }}
+    needs: [test]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Codecov
+        uses: codecov/codecov-action@v3
+        with:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          flags: unittests
+          fail_ci_if_error: true
+          verbose: true
