@@ -1,14 +1,15 @@
-name: Assign Reviewers Based on Assignees
+name: Review Assign
 
 on:
   pull_request:
-    types: [assigned, unassigned]
+    types: [opened, ready_for_review]
 
 jobs:
-  assignee_to_reviewer:
+  assign:
     runs-on: ubuntu-latest
     steps:
-      - name: Assignee to Reviewer
-        uses: abinoda/assignee-to-reviewer-action@v1.0.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ github.actor }}
+          reviewers: arifai
+          max-num-of-reviewers: 1
