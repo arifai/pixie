@@ -14,11 +14,15 @@ dependencies:
   equatable: ^2.0.5
   envied: ^0.3.0+3
   shared_preferences: ^2.2.0
+  get_it: ^7.6.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mocktail: ^1.0.0
+  faker: ^2.1.0
+  envied_generator: ^0.3.0+3
 
 flutter:
   uses-material-design: true

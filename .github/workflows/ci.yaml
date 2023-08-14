@@ -1,0 +1,62 @@
+name: Continuous Integration
+
+on:
+  push: 
+    branches:
+      - main
+
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+    steps:
+      - name: Checkout ${{ github.ref }} Branch in ${{ github.repository }} Repository
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          cache: true
+          channel: 'stable'
+
+      - name: Get Dependencies
+        run: flutter pub get
+      - name: Run Test
+        run: flutter test
+
+  coverage:
+    if: ${{ always() }}
+    needs: [test]
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+    steps:
+      - name: Checkout ${{ github.ref }} Branch in ${{ github.repository }} Repository
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          cache: true
+          channel: 'stable'
+
+      - name: Get Dependencies
+        run: flutter pub get
+      - name: Run Test
+        run: flutter test --coverage
+
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ matrix.os == 'ubuntu' && '/home/runner/work/pixie/pixie/coverage/lcov.info' || '/Users/runner/work/pixie/pixie/coverage/lcov.info' }}
+          flags: unittests
+          fail_ci_if_error: true
+          verbose: true

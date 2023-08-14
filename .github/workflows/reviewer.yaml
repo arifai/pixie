@@ -1,0 +1,14 @@
+name: Assign Reviewers Based on Assignees
+
+on:
+  pull_request:
+    types: [assigned, unassigned]
+
+jobs:
+  assignee_to_reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assignee to Reviewer
+        uses: abinoda/assignee-to-reviewer-action@v1.0.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

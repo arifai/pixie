@@ -1,0 +1,8 @@
+{
+  "code": 200,
+  "description": null,
+  "result": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoiYWNjZXNzVG9rZW4ifQ.Y4z1lOAStq4CxS-zOtmve0hnfg1_C2ct3vvLEqQ4sWA",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJ0eXBlIjoicmVmcmVzaFRva2VuIn0.ho6u3Y-UEv5OrmVqJJu6wfU1n7VAtdsK5WP2a7VTu6I"
+  }
+}

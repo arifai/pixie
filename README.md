@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/arifai/pixie/branch/test/graph/badge.svg?token=WqARyU11IU)](https://codecov.io/gh/arifai/pixie)
+
 # Pixie
 
 A template that makes it easy for you to build mobile apps using the Flutter framework.
