@@ -5,7 +5,7 @@ import 'package:pixie/features/access_token/domains/repositories/access_token_re
 import 'package:pixie/features/access_token/domains/usecases/access_token_usecase.dart';
 
 class AccessTokenRepositoryImp implements AccessTokenRepository {
-  AccessTokenRepositoryImp(this._dataSource);
+  const AccessTokenRepositoryImp(this._dataSource);
 
   final AccessTokenLocalDataSource _dataSource;
 

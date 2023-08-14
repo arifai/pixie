@@ -36,7 +36,7 @@ void main() {
     });
 
     test('should get the access token locally', () async {
-      final String encoded = jsonEncode(params.fromMap());
+      final String encoded = jsonEncode(params.toMap());
 
       when(() => mockSource.get()).thenAnswer((_) => encoded);
 

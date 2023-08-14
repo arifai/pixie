@@ -41,11 +41,11 @@ class AccessTokenParams extends Equatable {
   final String accessToken;
   final String refreshToken;
 
-  Map<String, dynamic> fromMap() {
+  Map<String, dynamic> toMap() {
     return {'accessToken': accessToken, 'refreshToken': refreshToken};
   }
 
-  @override
+  @override // coverage:ignore-line
   List<Object?> get props =>
       [accessToken, refreshToken]; // coverage:ignore-line
 }

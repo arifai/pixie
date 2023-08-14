@@ -4,7 +4,6 @@ on:
   push: 
     branches:
       - main
-      - test
 
   pull_request:
     branches: 
@@ -34,11 +33,11 @@ jobs:
   coverage:
     if: ${{ always() }}
     needs: [test]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu, macos]
     steps:
       - name: Setup Checkout
         uses: actions/checkout@v3
