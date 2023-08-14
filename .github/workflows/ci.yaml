@@ -27,7 +27,7 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
-      - name: Run test
+      - name: Run Test
         run: flutter test
 
   coverage:
@@ -49,7 +49,7 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
-      - name: Run test
+      - name: Run Test
         run: flutter test --coverage
 
       - name: Upload Coverage to Codecov
