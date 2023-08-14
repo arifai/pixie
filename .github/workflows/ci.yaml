@@ -25,7 +25,7 @@ jobs:
           cache: true
           channel: 'stable'
 
-      - name: Get dependencies
+      - name: Get Dependencies
         run: flutter pub get
       - name: Run test
         run: flutter test
@@ -47,16 +47,16 @@ jobs:
           cache: true
           channel: 'stable'
 
-      - name: Get dependencies
+      - name: Get Dependencies
         run: flutter pub get
       - name: Run test
         run: flutter test --coverage
 
-      - name: Upload coverage to Codecov
+      - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: /home/runner/work/pixie/pixie/coverage/lcov.info
+          files: ${{ matrix-os == 'ubuntu-latest' && '/home/runner/work/pixie/pixie/coverage/lcov.info' || /Users/runner/work/pixie/pixie/coverage/lcov.info }}
           flags: unittests
           fail_ci_if_error: true
           verbose: true
