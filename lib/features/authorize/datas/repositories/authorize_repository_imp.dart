@@ -10,10 +10,10 @@ class AuthorizeRepositoryImp implements AuthorizeRepository {
   final AuthorizeRemoteDataSource _dataSource;
 
   @override
-  TaskEither<Failure, AccessTokenEntity?> authorize() =>
-      _dataSource.authorize();
+  TaskEither<Failure, AccessTokenEntity?> authorize(params) =>
+      _dataSource.authorize(params);
 
   @override
-  TaskEither<Failure, void> unauthorize(String? token) =>
+  TaskEither<Failure, AccessTokenEntity?> unauthorize(token) =>
       _dataSource.unauthorize(token);
 }

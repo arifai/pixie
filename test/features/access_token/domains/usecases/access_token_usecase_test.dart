@@ -24,10 +24,8 @@ void main() {
   group('AccessTokenUseCase', () {
     final Faker faker = Faker();
     final String jwt = faker.jwt.expired();
-    final AccessTokenParams params = AccessTokenParams(
-      accessToken: jwt,
-      refreshToken: jwt,
-    );
+    final AccessTokenParams params =
+        AccessTokenParams(accessToken: jwt, refreshToken: jwt);
 
     test('should save the access token locally', () {
       when(() => repo.save(params)).thenAnswer((_) => TaskEither.of(true));
