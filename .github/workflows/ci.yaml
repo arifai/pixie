@@ -27,6 +27,8 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
+      - name: Run Analyze
+        run: flutter analyze .
       - name: Run Test
         run: flutter test
 
@@ -49,6 +51,8 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
+      - name: Run Analyze
+        run: flutter analyze .
       - name: Run Test
         run: flutter test --coverage
 
