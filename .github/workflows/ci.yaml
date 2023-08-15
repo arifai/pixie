@@ -25,6 +25,8 @@ jobs:
           cache: true
           channel: 'stable'
 
+      - name: Copy Environment File
+        run: cp .env.example .env
       - name: Get Dependencies
         run: flutter pub get
       - name: Generate Envied File with Build Runner
@@ -51,6 +53,8 @@ jobs:
           cache: true
           channel: 'stable'
 
+      - name: Copy Environment File
+        run: cp .env.example .env
       - name: Get Dependencies
         run: flutter pub get
       - name: Generate Envied File with Build Runner
