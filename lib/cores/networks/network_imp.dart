@@ -8,14 +8,15 @@ import 'package:pixie/cores/networks/network.dart';
 import 'package:pixie/cores/utils/isolate_parser.dart';
 
 class NetworkImp implements Network {
-  factory NetworkImp() => _singleton ??= NetworkImp._internal();
+  factory NetworkImp(bool test) => _singleton ??= NetworkImp._internal(test);
 
+  final bool test;
   static NetworkImp? _singleton;
   late Dio _dio;
 
-  NetworkImp._internal() {
+  NetworkImp._internal(this.test) {
     _dio = Dio(BaseOptions(
-      baseUrl: Env.baseUrl,
+      baseUrl: test ? Env.baseUrl : Env.baseUrlTest,
       sendTimeout: kDefaultDuration,
       receiveTimeout: kDefaultDuration,
       connectTimeout: kDefaultDuration,

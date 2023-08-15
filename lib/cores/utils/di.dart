@@ -7,12 +7,12 @@ GetIt di = GetIt.instance;
 Future<void> setup([bool test = false]) async {
   if (test) {
     di.reset();
-    _utils();
+    _utils(test);
   } else {
     _utils();
   }
 }
 
-void _utils() {
-  di.registerLazySingleton<Network>(() => NetworkImp());
+void _utils([bool test = false]) {
+  di.registerLazySingleton<Network>(() => NetworkImp(test));
 }
