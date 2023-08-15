@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:pixie/features/access_token/datas/datasource/access_token_local_data_source.dart';
+import 'package:pixie/features/access_token/datas/datasources/access_token_local_data_source.dart';
 import 'package:pixie/features/access_token/domains/usecases/access_token_usecase.dart';
 
 import '../../../../mocks/mock_shared_preferences.dart';

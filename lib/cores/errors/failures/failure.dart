@@ -5,8 +5,10 @@ abstract class Failure extends Equatable {
 
   final dynamic message;
 
-  @override // coverage:ignore-line
-  List<Object> get props => [message]; // coverage:ignore-line
+  // coverage:ignore-start
+  @override
+  List<Object> get props => [message];
+  // coverage:ignore-end
 }
 
 class NetworkFailure extends Failure {

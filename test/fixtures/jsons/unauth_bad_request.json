@@ -1,0 +1,5 @@
+{
+  "code": 400,
+  "description": "Access token is empty",
+  "result": null
+}

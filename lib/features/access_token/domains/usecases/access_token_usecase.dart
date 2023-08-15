@@ -10,8 +10,7 @@ class SaveAccessTokenUseCase extends UseCase<bool, AccessTokenParams> {
   final AccessTokenRepository _repository;
 
   @override
-  TaskEither<Failure, bool?> call(AccessTokenParams params) =>
-      _repository.save(params);
+  TaskEither<Failure, bool?> call(params) => _repository.save(params);
 }
 
 class GetAccessTokenUseCase extends UseCase<String, NoParams> {
@@ -20,7 +19,7 @@ class GetAccessTokenUseCase extends UseCase<String, NoParams> {
   final AccessTokenRepository _repository;
 
   @override
-  TaskEither<Failure, String?> call(NoParams params) => _repository.get();
+  TaskEither<Failure, String?> call(params) => _repository.get();
 }
 
 class RemoveAccessTokenUseCase extends UseCase<bool, NoParams> {
@@ -29,7 +28,7 @@ class RemoveAccessTokenUseCase extends UseCase<bool, NoParams> {
   final AccessTokenRepository _repository;
 
   @override
-  TaskEither<Failure, bool?> call(NoParams params) => _repository.remove();
+  TaskEither<Failure, bool?> call(params) => _repository.remove();
 }
 
 class AccessTokenParams extends Equatable {
@@ -45,7 +44,8 @@ class AccessTokenParams extends Equatable {
     return {'accessToken': accessToken, 'refreshToken': refreshToken};
   }
 
-  @override // coverage:ignore-line
-  List<Object?> get props =>
-      [accessToken, refreshToken]; // coverage:ignore-line
+  // coverage:ignore-start
+  @override
+  List<Object?> get props => [accessToken, refreshToken];
+  // coverage:ignore-end
 }

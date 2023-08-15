@@ -36,6 +36,8 @@ class NoParams extends Equatable {
   /// {@macro no_params}
   const NoParams();
 
-  @override // coverage:ignore-line
-  List<Object?> get props => []; // coverage:ignore-line
+  // coverage:ignore-start
+  @override
+  List<Object?> get props => [];
+  // coverage:ignore-end
 }

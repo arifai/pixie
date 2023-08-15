@@ -25,8 +25,14 @@ jobs:
           cache: true
           channel: 'stable'
 
+      - name: Copy Environment File
+        run: cp .env.example .env
       - name: Get Dependencies
         run: flutter pub get
+      - name: Generate Envied File with Build Runner
+        run: dart run build_runner build --delete-conflicting-outputs
+      - name: Run Analyze
+        run: flutter analyze .
       - name: Run Test
         run: flutter test
 
@@ -47,8 +53,14 @@ jobs:
           cache: true
           channel: 'stable'
 
+      - name: Copy Environment File
+        run: cp .env.example .env
       - name: Get Dependencies
         run: flutter pub get
+      - name: Generate Envied File with Build Runner
+        run: dart run build_runner build --delete-conflicting-outputs
+      - name: Run Analyze
+        run: flutter analyze .
       - name: Run Test
         run: flutter test --coverage
 
