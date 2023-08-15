@@ -35,6 +35,8 @@ class AuthParams extends Equatable {
     return {'username': username, 'password': password};
   }
 
-  @override // coverage:ignore-line
-  List<Object?> get props => [username, password]; // coverage:ignore-line
+  // coverage:ignore-start
+  @override
+  List<Object?> get props => [username, password];
+  // coverage:ignore-end
 }

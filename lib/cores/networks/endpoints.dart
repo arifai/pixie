@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 /// Required set of endpoints.
 class Endpoints {
   const Endpoints._();

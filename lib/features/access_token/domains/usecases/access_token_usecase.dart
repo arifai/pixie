@@ -44,7 +44,8 @@ class AccessTokenParams extends Equatable {
     return {'accessToken': accessToken, 'refreshToken': refreshToken};
   }
 
-  @override // coverage:ignore-line
-  List<Object?> get props =>
-      [accessToken, refreshToken]; // coverage:ignore-line
+  // coverage:ignore-start
+  @override
+  List<Object?> get props => [accessToken, refreshToken];
+  // coverage:ignore-end
 }
