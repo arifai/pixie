@@ -6,8 +6,8 @@ class AccessTokenEntity extends Equatable {
     required this.refreshToken,
   });
 
-  final String accessToken;
-  final String refreshToken;
+  final String? accessToken;
+  final String? refreshToken;
 
   @override
   List<Object?> get props => [accessToken, refreshToken];

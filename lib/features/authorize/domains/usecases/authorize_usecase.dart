@@ -31,6 +31,10 @@ class AuthParams extends Equatable {
   final String username;
   final String password;
 
+  Map<String, dynamic> toMap() {
+    return {'username': username, 'password': password};
+  }
+
   @override // coverage:ignore-line
   List<Object?> get props => [username, password]; // coverage:ignore-line
 }

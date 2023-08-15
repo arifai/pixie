@@ -21,8 +21,7 @@ void main() {
   });
 
   group('AuthorizeRepositoryImp', () {
-    const AuthParams params =
-        AuthParams(username: 'username', password: 'password');
+    const AuthParams params = AuthParams(username: 'abc', password: 'abc');
     final AccessTokenResponse response =
         AccessTokenResponse.fromMap(jsonDecode(reader('access_token.json')));
 
