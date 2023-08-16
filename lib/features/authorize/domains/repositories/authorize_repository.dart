@@ -6,6 +6,7 @@ import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart
 
 abstract class AuthorizeRepository {
   TaskEither<Failure, AccessTokenEntity?> authorize(AuthParams params);
-  TaskEither<Failure, AccessTokenEntity?> unauthorize(String? token);
+  TaskEither<Failure, RegistrationEntity?> unauthorize(String? token);
   TaskEither<Failure, RegistrationEntity?> registration(RegisterParams params);
+  TaskEither<Failure, RegistrationEntity?> activation(ActivationParams params);
 }

@@ -10,8 +10,9 @@ import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart
 
 abstract class AuthorizeRemoteDataSource {
   TaskEither<Failure, AccessTokenEntity?> authorize(AuthParams params);
-  TaskEither<Failure, AccessTokenEntity?> unauthorize(String? token);
+  TaskEither<Failure, RegistrationEntity?> unauthorize(String? token);
   TaskEither<Failure, RegistrationEntity?> registration(RegisterParams params);
+  TaskEither<Failure, RegistrationEntity?> activation(ActivationParams params);
 }
 
 class AuthorizeRemoteDataSourceImp implements AuthorizeRemoteDataSource {
@@ -29,10 +30,10 @@ class AuthorizeRemoteDataSourceImp implements AuthorizeRemoteDataSource {
   }
 
   @override
-  TaskEither<Failure, AccessTokenEntity?> unauthorize(token) {
+  TaskEither<Failure, RegistrationEntity?> unauthorize(token) {
     return _client.post(
       path: Endpoints.unauthorize,
-      converter: (resp) => AccessTokenResponse.fromMap(resp),
+      converter: (resp) => RegistrationResponse.fromMap(resp),
       body: {'accessToken': token},
     );
   }
@@ -41,6 +42,15 @@ class AuthorizeRemoteDataSourceImp implements AuthorizeRemoteDataSource {
   TaskEither<Failure, RegistrationEntity?> registration(params) {
     return _client.post(
       path: Endpoints.registration,
+      converter: (resp) => RegistrationResponse.fromMap(resp),
+      body: params.toMap(),
+    );
+  }
+
+  @override
+  TaskEither<Failure, RegistrationEntity?> activation(params) {
+    return _client.post(
+      path: Endpoints.activation,
       converter: (resp) => RegistrationResponse.fromMap(resp),
       body: params.toMap(),
     );
