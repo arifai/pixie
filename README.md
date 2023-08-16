@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/arifai/pixie/branch/test/graph/badge.svg?token=WqARyU11IU)](https://codecov.io/gh/arifai/pixie)
+[![codecov](https://codecov.io/gh/arifai/pixie/branch/test/graph/badge.svg?token=WqARyU11IU)](https://codecov.io/gh/arifai/pixie) [![Continuous Integration](https://github.com/arifai/pixie/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/arifai/pixie/actions/workflows/ci.yaml)
 
 # Pixie
 
