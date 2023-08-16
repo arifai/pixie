@@ -88,7 +88,7 @@ void main() {
         return server.reply(HttpStatus.unauthorized, unauthorized);
       }, data: {'accessToken': faker.jwt.expired()});
 
-      (await dataSourceImp.authorize(params).run()).match(
+      (await dataSourceImp.unauthorize(faker.jwt.expired()).run()).match(
         (l) => null,
         (r) => null,
       );
@@ -99,7 +99,7 @@ void main() {
         return server.reply(HttpStatus.badRequest, unAuthBadRequest);
       }, data: {'accessToken': null});
 
-      (await dataSourceImp.authorize(params).run()).match(
+      (await dataSourceImp.unauthorize(null).run()).match(
         (l) => isA<NetworkFailure>().having(
             (v) => v.message, 'description', unAuthBadRequest['description']),
         (r) => null,
