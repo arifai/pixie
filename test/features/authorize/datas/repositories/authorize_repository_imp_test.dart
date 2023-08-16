@@ -58,11 +58,11 @@ void main() {
 
     test('should return NetworkFailure when user authorize', () async {
       when(() => mockSource.authorize(params))
-          .thenAnswer((_) => TaskEither.left(const NetworkFailure('')));
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
 
       final result = await repo.authorize(params).run();
 
-      expect(result, equals(left(const NetworkFailure(''))));
+      expect(result, equals(left(const NetworkFailure())));
       verify(() => mockSource.authorize(params));
     });
 
@@ -77,11 +77,11 @@ void main() {
 
     test('should return NetworkFailure when user unauthorize', () async {
       when(() => mockSource.unauthorize(any()))
-          .thenAnswer((_) => TaskEither.left(const NetworkFailure('')));
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
 
       final result = await repo.unauthorize('').run();
 
-      expect(result, equals(left(const NetworkFailure(''))));
+      expect(result, equals(left(const NetworkFailure())));
       verify(() => mockSource.unauthorize(any()));
     });
 
