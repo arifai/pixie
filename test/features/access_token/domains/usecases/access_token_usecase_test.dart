@@ -58,11 +58,11 @@ void main() {
 
     test('should failure to save the access token locally', () async {
       when(() => repo.save(params))
-          .thenAnswer((_) => TaskEither.left(const LocalFailure('')));
+          .thenAnswer((_) => TaskEither.left(const LocalFailure()));
 
       final result = await saveUseCase(params).run();
 
-      expect(result, equals(left(const LocalFailure(''))));
+      expect(result, equals(left(const LocalFailure())));
 
       verify(() => repo.save(params));
       verifyNoMoreInteractions(repo);
@@ -70,11 +70,11 @@ void main() {
 
     test('should failure to get the access token', () async {
       when(() => repo.get())
-          .thenAnswer((_) => TaskEither.left(const LocalFailure('')));
+          .thenAnswer((_) => TaskEither.left(const LocalFailure()));
 
       final result = await getUseCase(const NoParams()).run();
 
-      expect(result, equals(left(const LocalFailure(''))));
+      expect(result, equals(left(const LocalFailure())));
 
       verify(() => repo.get());
       verifyNoMoreInteractions(repo);
@@ -82,11 +82,11 @@ void main() {
 
     test('should failure to remove the access token', () async {
       when(() => repo.remove())
-          .thenAnswer((_) => TaskEither.left(const LocalFailure('')));
+          .thenAnswer((_) => TaskEither.left(const LocalFailure()));
 
       final result = await removeUseCase(const NoParams()).run();
 
-      expect(result, equals(left(const LocalFailure(''))));
+      expect(result, equals(left(const LocalFailure())));
 
       verify(() => repo.remove());
       verifyNoMoreInteractions(repo);
