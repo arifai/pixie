@@ -32,7 +32,7 @@ void main() {
 
       saveUseCase(params);
 
-      verify(() => repo.save(params));
+      verify(() => repo.save(params).run());
       verifyNoMoreInteractions(repo);
     });
 
@@ -43,7 +43,7 @@ void main() {
 
       expect(result, equals(right(jwt)));
 
-      verify(() => repo.get());
+      verify(() => repo.get().run());
       verifyNoMoreInteractions(repo);
     });
 
@@ -52,7 +52,7 @@ void main() {
 
       removeUseCase(const NoParams());
 
-      verify(() => repo.remove());
+      verify(() => repo.remove().run());
       verifyNoMoreInteractions(repo);
     });
 
@@ -64,7 +64,7 @@ void main() {
 
       expect(result, equals(left(const LocalFailure())));
 
-      verify(() => repo.save(params));
+      verify(() => repo.save(params).run());
       verifyNoMoreInteractions(repo);
     });
 
@@ -76,7 +76,7 @@ void main() {
 
       expect(result, equals(left(const LocalFailure())));
 
-      verify(() => repo.get());
+      verify(() => repo.get().run());
       verifyNoMoreInteractions(repo);
     });
 
@@ -88,7 +88,7 @@ void main() {
 
       expect(result, equals(left(const LocalFailure())));
 
-      verify(() => repo.remove());
+      verify(() => repo.remove().run());
       verifyNoMoreInteractions(repo);
     });
   });
