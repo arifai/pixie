@@ -39,7 +39,7 @@ jobs:
   coverage:
     if: ${{ always() }}
     needs: [test]
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ github.ref }} Branch in ${{ github.repository }} Repository
         uses: actions/checkout@v3
