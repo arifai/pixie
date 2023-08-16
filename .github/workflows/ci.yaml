@@ -39,11 +39,7 @@ jobs:
   coverage:
     if: ${{ always() }}
     needs: [test]
-    runs-on: ${{ matrix.os }}-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu, macos]
+    runs-on: ubunt-latest
     steps:
       - name: Checkout ${{ github.ref }} Branch in ${{ github.repository }} Repository
         uses: actions/checkout@v3
@@ -68,7 +64,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ matrix.os == 'ubuntu' && '/home/runner/work/pixie/pixie/coverage/lcov.info' || '/Users/runner/work/pixie/pixie/coverage/lcov.info' }}
+          files: /home/runner/work/pixie/pixie/coverage/lcov.info
           flags: unittests
           fail_ci_if_error: true
           verbose: true
