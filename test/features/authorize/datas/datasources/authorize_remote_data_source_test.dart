@@ -10,6 +10,7 @@ import 'package:pixie/cores/networks/network.dart';
 import 'package:pixie/cores/utils/di.dart' as di;
 import 'package:pixie/features/access_token/datas/models/access_token_response.dart';
 import 'package:pixie/features/authorize/datas/datasources/authorize_remote_data_source.dart';
+import 'package:pixie/features/authorize/datas/models/registration_response.dart';
 import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart';
 
 import '../../../../fixtures/reader.dart';
@@ -34,7 +35,22 @@ void main() {
         jsonDecode(reader('unauthorized.json'));
     final Map<String, dynamic> unAuthBadRequest =
         jsonDecode(reader('unauth_bad_request.json'));
-    const AuthParams params = AuthParams(username: 'abc', password: 'abc');
+    final Map<String, dynamic> registerSuccess =
+        jsonDecode(reader('register_success.json'));
+    final Map<String, dynamic> registerBadRequest =
+        jsonDecode(reader('register_bad_request.json'));
+    AuthParams params = AuthParams(
+      username: faker.internet.userName(),
+      password: faker.internet.password(),
+    );
+    RegisterParams registerParams = RegisterParams(
+      fullName: faker.person.name(),
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      device: faker.internet.userAgent(),
+      ipAddress: faker.internet.ipv4Address(),
+    );
 
     test('should return 200 when credential are correct', () async {
       adapter.onPost(Endpoints.authorize, (server) {
@@ -59,7 +75,7 @@ void main() {
       );
     });
 
-    test('should return 401 when user unauthorized', () async {
+    test('should return 401 when user unauthorize successful', () async {
       adapter.onPost(Endpoints.unauthorize, (server) {
         return server.reply(HttpStatus.unauthorized, unauthorized);
       }, data: {'accessToken': faker.jwt.expired()});
@@ -70,7 +86,7 @@ void main() {
       );
     });
 
-    test('should return 400 when user unauthorize', () async {
+    test('should return 400 when user unauthorize unsuccessful', () async {
       adapter.onPost(Endpoints.unauthorize, (server) {
         return server.reply(HttpStatus.badRequest, unAuthBadRequest);
       }, data: {'accessToken': null});
@@ -78,6 +94,29 @@ void main() {
       (await dataSourceImp.authorize(params).run()).match(
         (l) => isA<NetworkFailure>().having(
             (v) => v.message, 'description', unAuthBadRequest['description']),
+        (r) => null,
+      );
+    });
+
+    test('should return 201 when user registration successful', () async {
+      adapter.onPost(Endpoints.registration, (server) {
+        return server.reply(HttpStatus.created, registerSuccess);
+      }, data: registerParams.toMap());
+
+      (await dataSourceImp.registration(registerParams).run()).match(
+        (l) => null,
+        (r) => RegistrationResponse.fromMap(registerSuccess),
+      );
+    });
+
+    test('should return 400 when username is already registered', () async {
+      adapter.onPost(Endpoints.registration, (server) {
+        return server.reply(HttpStatus.badRequest, registerBadRequest);
+      }, data: registerParams.toMap());
+
+      (await dataSourceImp.registration(registerParams).run()).match(
+        (l) => isA<NetworkFailure>().having(
+            (v) => v.message, 'description', registerBadRequest['description']),
         (r) => null,
       );
     });
