@@ -39,6 +39,10 @@ void main() {
         jsonDecode(reader('register_success.json'));
     final Map<String, dynamic> registerBadRequest =
         jsonDecode(reader('register_bad_request.json'));
+    final Map<String, dynamic> activeSuccess =
+        jsonDecode(reader('active_success.json'));
+    final Map<String, dynamic> activeBadRequest =
+        jsonDecode(reader('active_bad_request.json'));
     AuthParams params = AuthParams(
       username: faker.internet.userName(),
       password: faker.internet.password(),
@@ -50,6 +54,10 @@ void main() {
       password: faker.internet.password(),
       device: faker.internet.userAgent(),
       ipAddress: faker.internet.ipv4Address(),
+    );
+    ActivationParams activeParams = ActivationParams(
+      token: faker.jwt.expired(),
+      activationCode: faker.randomGenerator.integer(6),
     );
 
     test('should return 200 when credential are correct', () async {
@@ -117,6 +125,29 @@ void main() {
       (await dataSourceImp.registration(registerParams).run()).match(
         (l) => isA<NetworkFailure>().having(
             (v) => v.message, 'description', registerBadRequest['description']),
+        (r) => null,
+      );
+    });
+
+    test('should return 200 when user activation successful', () async {
+      adapter.onPost(Endpoints.activation, (server) {
+        return server.reply(HttpStatus.ok, activeSuccess);
+      }, data: activeParams.toMap());
+
+      (await dataSourceImp.activation(activeParams).run()).match(
+        (l) => null,
+        (r) => RegistrationResponse.fromMap(activeSuccess),
+      );
+    });
+
+    test('should return 400 when activation code is expired', () async {
+      adapter.onPost(Endpoints.activation, (server) {
+        return server.reply(HttpStatus.badRequest, activeBadRequest);
+      }, data: activeParams.toMap());
+
+      (await dataSourceImp.activation(activeParams).run()).match(
+        (l) => isA<NetworkFailure>().having(
+            (v) => v.message, 'description', activeBadRequest['description']),
         (r) => null,
       );
     });

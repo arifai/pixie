@@ -15,10 +15,14 @@ class AuthorizeRepositoryImp implements AuthorizeRepository {
       _dataSource.authorize(params);
 
   @override
-  TaskEither<Failure, AccessTokenEntity?> unauthorize(token) =>
+  TaskEither<Failure, RegistrationEntity?> unauthorize(token) =>
       _dataSource.unauthorize(token);
 
   @override
   TaskEither<Failure, RegistrationEntity?> registration(params) =>
       _dataSource.registration(params);
+
+  @override
+  TaskEither<Failure, RegistrationEntity?> activation(params) =>
+      _dataSource.activation(params);
 }

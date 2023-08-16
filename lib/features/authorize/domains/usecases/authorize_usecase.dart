@@ -16,13 +16,13 @@ class AuthorizeUseCase extends UseCase<AccessTokenEntity, AuthParams> {
       _repository.authorize(params);
 }
 
-class UnAuthorizeUseCase extends UseCase<AccessTokenEntity, String> {
+class UnAuthorizeUseCase extends UseCase<RegistrationEntity, String> {
   const UnAuthorizeUseCase(this._repository);
 
   final AuthorizeRepository _repository;
 
   @override
-  TaskEither<Failure, AccessTokenEntity?> call(params) =>
+  TaskEither<Failure, RegistrationEntity?> call(params) =>
       _repository.unauthorize(params);
 }
 
@@ -34,6 +34,16 @@ class RegistrationUseCase extends UseCase<RegistrationEntity, RegisterParams> {
   @override
   TaskEither<Failure, RegistrationEntity?> call(params) =>
       _repository.registration(params);
+}
+
+class ActivationUseCase extends UseCase<RegistrationEntity, ActivationParams> {
+  const ActivationUseCase(this._repository);
+
+  final AuthorizeRepository _repository;
+
+  @override
+  TaskEither<Failure, RegistrationEntity?> call(params) =>
+      _repository.activation(params);
 }
 
 class AuthParams extends Equatable {
@@ -90,5 +100,21 @@ class RegisterParams extends Equatable {
         device,
         ipAddress,
       ];
+  // coverage:ignore-end
+}
+
+class ActivationParams extends Equatable {
+  const ActivationParams({required this.token, required this.activationCode});
+
+  final String token;
+  final int activationCode;
+
+  Map<String, dynamic> toMap() {
+    return {'token': token, 'activationCode': activationCode};
+  }
+
+  // coverage:ignore-start
+  @override
+  List<Object?> get props => [token, activationCode];
   // coverage:ignore-end
 }

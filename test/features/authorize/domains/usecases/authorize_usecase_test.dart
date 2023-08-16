@@ -14,12 +14,14 @@ void main() {
   late AuthorizeUseCase authUseCase;
   late UnAuthorizeUseCase unAuthUseCase;
   late RegistrationUseCase registerUseCase;
+  late ActivationUseCase activeUseCase;
 
   setUp(() {
     repo = MockAuthorizeRepository();
     authUseCase = AuthorizeUseCase(repo);
     unAuthUseCase = UnAuthorizeUseCase(repo);
     registerUseCase = RegistrationUseCase(repo);
+    activeUseCase = ActivationUseCase(repo);
   });
 
   group('AuthorizeUseCase', () {
@@ -39,6 +41,10 @@ void main() {
       password: faker.internet.password(),
       device: faker.internet.userAgent(),
       ipAddress: faker.internet.ipv4Address(),
+    );
+    ActivationParams activeParams = ActivationParams(
+      token: faker.jwt.expired(),
+      activationCode: faker.randomGenerator.integer(6),
     );
 
     test('should return AccessTokenEntity when user authenticated', () async {
@@ -105,6 +111,29 @@ void main() {
 
       expect(result, equals(left(const NetworkFailure())));
       verify(() => repo.registration(registerParams));
+      verifyNoMoreInteractions(repo);
+    });
+
+    test('should return null when user activation successful', () async {
+      when(() => repo.activation(activeParams))
+          .thenAnswer((_) => TaskEither.of(null));
+
+      final result = await activeUseCase(activeParams).run();
+
+      expect(result, equals(right(null)));
+      verify(() => repo.activation(activeParams));
+      verifyNoMoreInteractions(repo);
+    });
+
+    test('should return NetworkFailure when user activation unsuccessful',
+        () async {
+      when(() => repo.activation(activeParams))
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
+
+      final result = await activeUseCase(activeParams).run();
+
+      expect(result, equals(left(const NetworkFailure())));
+      verify(() => repo.activation(activeParams));
       verifyNoMoreInteractions(repo);
     });
   });

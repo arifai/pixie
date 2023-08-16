@@ -40,6 +40,10 @@ void main() {
       device: faker.internet.userAgent(),
       ipAddress: faker.internet.ipv4Address(),
     );
+    ActivationParams activeParams = ActivationParams(
+      token: faker.jwt.expired(),
+      activationCode: faker.randomGenerator.integer(6),
+    );
 
     test('should return AccessTokenResponse.fromMap() when user authorized',
         () async {
@@ -94,12 +98,33 @@ void main() {
     test('should return NetworkFailure when user registration unsuccessful',
         () async {
       when(() => mockSource.registration(registerParams))
-          .thenAnswer((_) => TaskEither.left(const NetworkFailure('')));
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
 
       final result = await repo.registration(registerParams).run();
 
-      expect(result, equals(left(const NetworkFailure(''))));
+      expect(result, equals(left(const NetworkFailure())));
       verify(() => mockSource.registration(registerParams));
+    });
+
+    test('should return token when user activation successful', () async {
+      when(() => mockSource.activation(activeParams))
+          .thenAnswer((_) => TaskEither.of(null));
+
+      final result = await repo.activation(activeParams).run();
+
+      expect(result, equals(right(null)));
+      verify(() => mockSource.activation(activeParams));
+    });
+
+    test('should return NetworkFailure when user activation unsuccessful',
+        () async {
+      when(() => mockSource.activation(activeParams))
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
+
+      final result = await repo.activation(activeParams).run();
+
+      expect(result, equals(left(const NetworkFailure())));
+      verify(() => mockSource.activation(activeParams));
     });
   });
 }
