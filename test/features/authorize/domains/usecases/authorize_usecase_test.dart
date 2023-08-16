@@ -4,6 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
 import 'package:pixie/features/access_token/domains/entities/access_token_entity.dart';
+import 'package:pixie/features/authorize/domains/entities/registration_entity.dart';
 import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart';
 
 import '../../../../mocks/authorize/mock_authorize_repository.dart';
@@ -12,19 +13,33 @@ void main() {
   late MockAuthorizeRepository repo;
   late AuthorizeUseCase authUseCase;
   late UnAuthorizeUseCase unAuthUseCase;
+  late RegistrationUseCase registerUseCase;
 
   setUp(() {
     repo = MockAuthorizeRepository();
     authUseCase = AuthorizeUseCase(repo);
     unAuthUseCase = UnAuthorizeUseCase(repo);
+    registerUseCase = RegistrationUseCase(repo);
   });
 
   group('AuthorizeUseCase', () {
-    const AuthParams params = AuthParams(username: 'abc', password: 'abc');
     final Faker faker = Faker();
     final String jwt = faker.jwt.expired();
+    final RegistrationEntity registerData = RegistrationEntity(jwt);
     final AccessTokenEntity data =
         AccessTokenEntity(accessToken: jwt, refreshToken: jwt);
+    AuthParams params = AuthParams(
+      username: faker.internet.userName(),
+      password: faker.internet.password(),
+    );
+    RegisterParams registerParams = RegisterParams(
+      fullName: faker.person.name(),
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      device: faker.internet.userAgent(),
+      ipAddress: faker.internet.ipv4Address(),
+    );
 
     test('should return AccessTokenEntity when user authenticated', () async {
       when(() => repo.authorize(params)).thenAnswer((_) => TaskEither.of(data));
@@ -66,6 +81,30 @@ void main() {
 
       expect(result, equals(left(const NetworkFailure())));
       verify(() => repo.unauthorize(any()));
+      verifyNoMoreInteractions(repo);
+    });
+
+    test('should return RegistrationEntity when user registration successful',
+        () async {
+      when(() => repo.registration(registerParams))
+          .thenAnswer((_) => TaskEither.of(registerData));
+
+      final result = await registerUseCase(registerParams).run();
+
+      expect(result, equals(right(registerData)));
+      verify(() => repo.registration(registerParams));
+      verifyNoMoreInteractions(repo);
+    });
+
+    test('should return NetworkFailure when user registration unsuccessful',
+        () async {
+      when(() => repo.registration(registerParams))
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
+
+      final result = await registerUseCase(registerParams).run();
+
+      expect(result, equals(left(const NetworkFailure())));
+      verify(() => repo.registration(registerParams));
       verifyNoMoreInteractions(repo);
     });
   });

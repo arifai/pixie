@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
 import 'package:pixie/features/access_token/datas/models/access_token_response.dart';
+import 'package:pixie/features/authorize/datas/models/registration_response.dart';
 import 'package:pixie/features/authorize/datas/repositories/authorize_repository_imp.dart';
 import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart';
 
@@ -21,9 +23,23 @@ void main() {
   });
 
   group('AuthorizeRepositoryImp', () {
-    const AuthParams params = AuthParams(username: 'abc', password: 'abc');
+    final Faker faker = Faker();
     final AccessTokenResponse response =
         AccessTokenResponse.fromMap(jsonDecode(reader('access_token.json')));
+    final RegistrationResponse registerSuccess = RegistrationResponse.fromMap(
+        jsonDecode(reader('register_success.json')));
+    AuthParams params = AuthParams(
+      username: faker.internet.userName(),
+      password: faker.internet.password(),
+    );
+    RegisterParams registerParams = RegisterParams(
+      fullName: faker.person.name(),
+      username: faker.internet.userName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      device: faker.internet.userAgent(),
+      ipAddress: faker.internet.ipv4Address(),
+    );
 
     test('should return AccessTokenResponse.fromMap() when user authorized',
         () async {
@@ -63,6 +79,27 @@ void main() {
 
       expect(result, equals(left(const NetworkFailure(''))));
       verify(() => mockSource.unauthorize(any()));
+    });
+
+    test('should return token when user registration successful', () async {
+      when(() => mockSource.registration(registerParams))
+          .thenAnswer((_) => TaskEither.of(registerSuccess));
+
+      final result = await repo.registration(registerParams).run();
+
+      expect(result, equals(right(registerSuccess)));
+      verify(() => mockSource.registration(registerParams));
+    });
+
+    test('should return NetworkFailure when user registration unsuccessful',
+        () async {
+      when(() => mockSource.registration(registerParams))
+          .thenAnswer((_) => TaskEither.left(const NetworkFailure('')));
+
+      final result = await repo.registration(registerParams).run();
+
+      expect(result, equals(left(const NetworkFailure(''))));
+      verify(() => mockSource.registration(registerParams));
     });
   });
 }
