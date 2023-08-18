@@ -8,4 +8,5 @@ class Endpoints {
   static const String unauthorize = '/user/v1/unauthorize';
   static const String registration = '/user/v1/registration';
   static const String activation = '/user/v1/activation';
+  static const String currentUser = '/user/v1/me';
 }
