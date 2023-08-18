@@ -1,0 +1,11 @@
+{
+  "code": 200,
+  "description": null,
+  "result": {
+    "fullName": "John Doe",
+    "username": "johndoe",
+    "email": "johndoe@dummy.test",
+    "avatar": "http://www.gravatar.com/avatar/2076f1935d9cf8ca6fbfe54bd4b1c260?r=PG&s=256&default=identicon",
+    "isActive": true
+  }
+}
