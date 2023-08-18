@@ -67,7 +67,7 @@ void main() {
 
       (await dataSourceImp.authorize(params).run()).match(
         (l) => null,
-        (r) => AccessTokenResponse.fromMap(success),
+        (r) => AccessTokenResponse.fromMap(success['result']),
       );
     });
 
