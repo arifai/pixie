@@ -27,7 +27,8 @@ void main() {
     });
 
     test('should return datas from response', () {
-      final AccessTokenResponse result = AccessTokenResponse.fromMap(data);
+      final AccessTokenResponse result =
+          AccessTokenResponse.fromMap(data['result']);
 
       expect(result, response);
     });

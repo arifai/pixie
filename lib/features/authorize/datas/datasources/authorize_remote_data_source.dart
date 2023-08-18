@@ -24,7 +24,7 @@ class AuthorizeRemoteDataSourceImp implements AuthorizeRemoteDataSource {
   TaskEither<Failure, AccessTokenEntity?> authorize(params) {
     return _client.post(
       path: Endpoints.authorize,
-      converter: (resp) => AccessTokenResponse.fromMap(resp),
+      converter: (resp) => AccessTokenResponse.fromMap(resp['result']),
       body: params.toMap(),
     );
   }

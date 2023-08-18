@@ -8,8 +8,8 @@ class AccessTokenResponse extends AccessTokenEntity {
 
   factory AccessTokenResponse.fromMap(Map<String, dynamic> data) {
     return AccessTokenResponse(
-      accessToken: data['result']['accessToken'] as String?,
-      refreshToken: data['result']['refreshToken'] as String?,
+      accessToken: data['accessToken'] as String?,
+      refreshToken: data['refreshToken'] as String?,
     );
   }
 }
