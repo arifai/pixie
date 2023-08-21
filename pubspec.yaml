@@ -26,6 +26,7 @@ dev_dependencies:
   envied_generator: ^0.3.0+3
   build_runner: ^2.4.6
   http_mock_adapter: ^0.4.4
+  bloc_test: ^9.1.4
 
 flutter:
   uses-material-design: true
