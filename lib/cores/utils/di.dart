@@ -8,6 +8,11 @@ import 'package:pixie/features/authorize/datas/repositories/authorize_repository
 import 'package:pixie/features/authorize/domains/repositories/authorize_repository.dart';
 import 'package:pixie/features/authorize/domains/usecases/authorize_usecase.dart';
 import 'package:pixie/features/authorize/presentations/bloc/authorize_bloc.dart';
+import 'package:pixie/features/current_user/datas/datasources/current_user_remote_data_source.dart';
+import 'package:pixie/features/current_user/datas/repositories/current_user_repository_imp.dart';
+import 'package:pixie/features/current_user/domains/repositories/current_user_repository.dart';
+import 'package:pixie/features/current_user/domains/usecases/current_user_usecase.dart';
+import 'package:pixie/features/current_user/presentations/bloc/current_user_bloc.dart';
 
 GetIt di = GetIt.instance;
 
@@ -35,11 +40,15 @@ void _utils([bool test = false]) {
 void _dataSources() {
   di.registerLazySingleton<AuthorizeRemoteDataSource>(
       () => AuthorizeRemoteDataSourceImp(di()));
+  di.registerLazySingleton<CurrentUserRemoteDataSource>(
+      () => CurrentUserRemoteDataSourceImp(di()));
 }
 
 void _repositories() {
   di.registerLazySingleton<AuthorizeRepository>(
       () => AuthorizeRepositoryImp(di()));
+  di.registerLazySingleton<CurrentUserRepository>(
+      () => CurrentUserRepositoryImp(di()));
 }
 
 void _useCases() {
@@ -47,9 +56,11 @@ void _useCases() {
   di.registerLazySingleton(() => UnAuthorizeUseCase(di()));
   di.registerLazySingleton(() => RegistrationUseCase(di()));
   di.registerLazySingleton(() => ActivationUseCase(di()));
+  di.registerLazySingleton(() => GetCurrentUserUseCase(di()));
 }
 
 void _blocs() {
+  di.registerFactory(() => CurrentUserBloc(di()));
   di.registerFactory(() => AuthorizeBloc(
         authUseCase: di(),
         unAuthUseCase: di(),
