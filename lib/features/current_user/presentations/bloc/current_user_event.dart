@@ -9,6 +9,6 @@ abstract class CurrentUserEvent extends Equatable {
   // coverage:ignore-end
 }
 
-class DoGetCurrentUser extends CurrentUserEvent {
-  const DoGetCurrentUser();
+final class CurrentUserDoGetUser extends CurrentUserEvent {
+  const CurrentUserDoGetUser();
 }

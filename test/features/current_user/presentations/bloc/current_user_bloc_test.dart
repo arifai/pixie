@@ -41,7 +41,7 @@ void main() {
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const DoGetCurrentUser()),
+      act: (bloc) => bloc.add(const CurrentUserDoGetUser()),
       wait: const Duration(milliseconds: 500),
       expect: () => [
         const CurrentUserState(status: CurrentUserStatus.loading),
@@ -58,7 +58,7 @@ void main() {
 
         return bloc;
       },
-      act: (bloc) => bloc.add(const DoGetCurrentUser()),
+      act: (bloc) => bloc.add(const CurrentUserDoGetUser()),
       wait: const Duration(milliseconds: 500),
       expect: () => [
         const CurrentUserState(status: CurrentUserStatus.loading),
