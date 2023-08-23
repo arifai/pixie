@@ -2,7 +2,7 @@ part of 'authorize_bloc.dart';
 
 enum AuthorizeStatus { initial, loading, success, failed }
 
-class AuthorizeState extends Equatable {
+final class AuthorizeState extends Equatable {
   const AuthorizeState({
     this.status = AuthorizeStatus.initial,
     this.message,

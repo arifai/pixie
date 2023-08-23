@@ -19,7 +19,7 @@ class AuthorizeBloc extends Bloc<AuthorizeEvent, AuthorizeState> {
     required this.registerUseCase,
     required this.activateUseCase,
   }) : super(const AuthorizeState()) {
-    on<DoAuthorize>((event, emit) async {
+    on<AuthorizeDoAuth>((event, emit) async {
       emit(state.copy(status: AuthorizeStatus.loading));
 
       (await authUseCase(event.params).run()).match(
@@ -32,7 +32,7 @@ class AuthorizeBloc extends Bloc<AuthorizeEvent, AuthorizeState> {
       );
     });
 
-    on<DoUnAuthorize>((event, emit) async {
+    on<AuthorizeDoUnAuth>((event, emit) async {
       emit(state.copy(status: AuthorizeStatus.loading));
 
       (await unAuthUseCase(event.token).run()).match(
@@ -45,7 +45,7 @@ class AuthorizeBloc extends Bloc<AuthorizeEvent, AuthorizeState> {
       );
     });
 
-    on<DoRegister>((event, emit) async {
+    on<AuthorizeDoRegister>((event, emit) async {
       emit(state.copy(status: AuthorizeStatus.loading));
 
       (await registerUseCase(event.params).run()).match(
@@ -58,7 +58,7 @@ class AuthorizeBloc extends Bloc<AuthorizeEvent, AuthorizeState> {
       );
     });
 
-    on<DoActivate>((event, emit) async {
+    on<AuthorizeDoActivate>((event, emit) async {
       emit(state.copy(status: AuthorizeStatus.loading));
 
       (await activateUseCase(event.params).run()).match(

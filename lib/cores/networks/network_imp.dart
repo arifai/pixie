@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:fpdart/fpdart.dart';
 import 'package:pixie/cores/environment/env.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
@@ -16,14 +17,18 @@ class NetworkImp implements Network {
 
   NetworkImp._internal(this.test) {
     _dio = Dio(BaseOptions(
-      baseUrl: test ? Env.baseUrl : Env.baseUrlTest,
+      baseUrl: !test ? Env.baseUrl : Env.baseUrlTest,
       sendTimeout: kDefaultDuration,
       receiveTimeout: kDefaultDuration,
       connectTimeout: kDefaultDuration,
       contentType: Headers.jsonContentType,
       followRedirects: false,
       validateStatus: (_) => true,
-    ));
+    ))
+      ..interceptors.addAll([
+        if (!test && kDebugMode)
+          LogInterceptor(requestBody: true, responseBody: true)
+      ]);
   }
 
   @override
@@ -47,7 +52,7 @@ class NetworkImp implements Network {
         final DioException e = error as DioException;
 
         return NetworkFailure(
-          e.response?.data['message'] as String? ?? e.message,
+          e.response?.data['description'] as String? ?? e.message,
         );
       },
     );
@@ -71,7 +76,7 @@ class NetworkImp implements Network {
         final DioException e = error as DioException;
 
         return NetworkFailure(
-          e.response?.data['message'] as String? ?? e.message,
+          e.response?.data['description'] as String? ?? e.message,
         );
       },
     );

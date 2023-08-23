@@ -69,7 +69,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoAuthorize(authParams)),
+        act: (bloc) => bloc.add(AuthorizeDoAuth(authParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -89,7 +89,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoAuthorize(authParams)),
+        act: (bloc) => bloc.add(AuthorizeDoAuth(authParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -112,7 +112,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoUnAuthorize(jwt)),
+        act: (bloc) => bloc.add(AuthorizeDoUnAuth(jwt)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -132,7 +132,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoUnAuthorize(jwt)),
+        act: (bloc) => bloc.add(AuthorizeDoUnAuth(jwt)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -155,7 +155,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoRegister(registerParams)),
+        act: (bloc) => bloc.add(AuthorizeDoRegister(registerParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -175,7 +175,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoRegister(registerParams)),
+        act: (bloc) => bloc.add(AuthorizeDoRegister(registerParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -198,7 +198,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoActivate(activationParams)),
+        act: (bloc) => bloc.add(AuthorizeDoActivate(activationParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
@@ -218,7 +218,7 @@ void main() {
 
           return bloc;
         },
-        act: (bloc) => bloc.add(DoActivate(activationParams)),
+        act: (bloc) => bloc.add(AuthorizeDoActivate(activationParams)),
         wait: const Duration(milliseconds: 500),
         expect: () => [
           const AuthorizeState(status: AuthorizeStatus.loading),
