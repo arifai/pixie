@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixie/cores/constants/app_routes.dart';
+import 'package:pixie/cores/constants/app_theme.dart';
 import 'package:pixie/cores/utils/app_navigator.dart';
 import 'package:pixie/cores/utils/custom_bloc_observer.dart';
 import 'package:pixie/cores/utils/di.dart' as di;
@@ -26,10 +27,7 @@ class PixieApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Pixie',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: const AppTheme().base,
       navigatorKey: navigator.navigatorKey,
       initialRoute: AppRoutes.authorize,
       onGenerateRoute: (settings) => RouteGenerator(settings).gen(),
