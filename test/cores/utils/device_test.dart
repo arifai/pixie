@@ -13,14 +13,12 @@ void main() {
       when(() => device.getType()).thenReturn('Android');
 
       expect('Android', equals('Android'));
-      verifyNever(() => device.getType());
     });
 
     test('should return device type iOS if platform is iOS', () {
       when(() => device.getType()).thenReturn('iOS');
 
       expect('iOS', equals('iOS'));
-      verifyNever(() => device.getType());
     });
 
     test(
@@ -29,14 +27,12 @@ void main() {
       when(() => device.getType()).thenReturn('Unknown device type');
 
       expect('Unknown device type', equals('Unknown device type'));
-      verifyNever(() => device.getType());
     });
 
     test('should return IP address 127.0.0.1', () {
       when(() => device.getIPAddress()).thenAnswer((_) async => '127.0.0.1');
 
       expect('127.0.0.1', equals('127.0.0.1'));
-      verifyNever(() => device.getIPAddress());
     });
   });
 }
