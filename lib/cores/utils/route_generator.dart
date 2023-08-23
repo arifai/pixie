@@ -18,7 +18,7 @@ class RouteGenerator {
   Route<dynamic>? gen() {
     return MaterialPageRoute(
       builder: (_) {
-        final Object? args = _settings.arguments;
+        // final Object? args = _settings.arguments;
 
         switch (_settings.name) {
           case AppRoutes.authorize:
