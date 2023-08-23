@@ -34,5 +34,11 @@ void main() {
 
       expect('127.0.0.1', equals('127.0.0.1'));
     });
+
+    test('should return null if IP address not obtained', () {
+      when(() => device.getIPAddress()).thenAnswer((_) async => null);
+
+      expect(null, equals(null));
+    });
   });
 }
