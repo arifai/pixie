@@ -64,7 +64,7 @@ class AuthParams extends Equatable {
     return {
       'username': username,
       'password': password,
-      'device': Device.getType(),
+      'device': const Device().getType(),
       'ipAddress': ipAddress ?? '127.0.0.1',
     };
   }

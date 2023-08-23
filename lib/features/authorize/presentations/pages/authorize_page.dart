@@ -31,7 +31,7 @@ class _AuthorizePageState extends State<AuthorizePage> {
       context.read<AuthorizeBloc>().add(AuthorizeDoAuth(AuthParams(
             username: _usernameCtl.text,
             password: _passwordCtl.text,
-            ipAddress: await Device.getIPAddress(),
+            ipAddress: await const Device().getIPAddress(),
           )));
     }
   }
