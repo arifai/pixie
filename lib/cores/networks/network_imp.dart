@@ -25,10 +25,12 @@ class NetworkImp implements Network {
       followRedirects: false,
       validateStatus: (_) => true,
     ))
+      // coverage:ignore-start
       ..interceptors.addAll([
         if (!test && kDebugMode)
           LogInterceptor(requestBody: true, responseBody: true)
       ]);
+    // coverage:ignore-end
   }
 
   @override
