@@ -11,7 +11,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
   final GetCurrentUserUseCase getUseCase;
 
   CurrentUserBloc(this.getUseCase) : super(const CurrentUserState()) {
-    on<DoGetCurrentUser>((event, emit) async {
+    on<CurrentUserDoGetUser>((event, emit) async {
       emit(state.copy(status: CurrentUserStatus.loading));
 
       (await getUseCase(const NoParams()).run()).match(

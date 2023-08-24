@@ -2,7 +2,7 @@ part of 'current_user_bloc.dart';
 
 enum CurrentUserStatus { initial, loading, success, failed }
 
-class CurrentUserState extends Equatable {
+final class CurrentUserState extends Equatable {
   const CurrentUserState({
     this.status = CurrentUserStatus.initial,
     this.message,

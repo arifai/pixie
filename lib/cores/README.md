@@ -6,11 +6,10 @@ Contains core components that are independent of specific features or layers.
 
 ```
 cores/
-├── bases
+├── constants
 ├── environment
 ├── errors/
-│   ├── failures
-│   └── exceptions
+│   └── failures
 ├── extentions
 ├── networks
 ├── usecases

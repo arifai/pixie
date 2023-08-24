@@ -1,6 +1,6 @@
 part of 'authorize_bloc.dart';
 
-abstract class AuthorizeEvent extends Equatable {
+sealed class AuthorizeEvent extends Equatable {
   const AuthorizeEvent();
 
   // coverage:ignore-start
@@ -9,26 +9,26 @@ abstract class AuthorizeEvent extends Equatable {
   // coverage:ignore-end
 }
 
-class DoAuthorize extends AuthorizeEvent {
-  const DoAuthorize(this.params);
+final class AuthorizeDoAuth extends AuthorizeEvent {
+  const AuthorizeDoAuth(this.params);
 
   final AuthParams params;
 }
 
-class DoUnAuthorize extends AuthorizeEvent {
-  const DoUnAuthorize(this.token);
+final class AuthorizeDoUnAuth extends AuthorizeEvent {
+  const AuthorizeDoUnAuth(this.token);
 
   final String token;
 }
 
-class DoRegister extends AuthorizeEvent {
-  const DoRegister(this.params);
+final class AuthorizeDoRegister extends AuthorizeEvent {
+  const AuthorizeDoRegister(this.params);
 
   final RegisterParams params;
 }
 
-class DoActivate extends AuthorizeEvent {
-  const DoActivate(this.params);
+final class AuthorizeDoActivate extends AuthorizeEvent {
+  const AuthorizeDoActivate(this.params);
 
   final ActivationParams params;
 }

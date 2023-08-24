@@ -3,6 +3,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:pixie/cores/networks/network.dart';
 import 'package:pixie/cores/networks/network_imp.dart';
+import 'package:pixie/cores/utils/app_navigator.dart';
 import 'package:pixie/features/authorize/datas/datasources/authorize_remote_data_source.dart';
 import 'package:pixie/features/authorize/datas/repositories/authorize_repository_imp.dart';
 import 'package:pixie/features/authorize/domains/repositories/authorize_repository.dart';
@@ -35,6 +36,7 @@ Future<void> setup([bool test = false]) async {
 
 void _utils([bool test = false]) {
   di.registerLazySingleton<Network>(() => NetworkImp(test));
+  di.registerLazySingleton(() => AppNavigator());
 }
 
 void _dataSources() {

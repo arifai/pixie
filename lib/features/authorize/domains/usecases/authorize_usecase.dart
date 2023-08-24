@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
 import 'package:pixie/cores/usecase/usecase.dart';
+import 'package:pixie/cores/utils/device.dart';
 import 'package:pixie/features/access_token/domains/entities/access_token_entity.dart';
 import 'package:pixie/features/authorize/domains/entities/registration_entity.dart';
 import 'package:pixie/features/authorize/domains/repositories/authorize_repository.dart';
@@ -47,13 +48,25 @@ class ActivationUseCase extends UseCase<RegistrationEntity, ActivationParams> {
 }
 
 class AuthParams extends Equatable {
-  const AuthParams({required this.username, required this.password});
+  const AuthParams({
+    required this.username,
+    required this.password,
+    this.device,
+    this.ipAddress,
+  });
 
   final String username;
   final String password;
+  final String? device;
+  final String? ipAddress;
 
   Map<String, dynamic> toMap() {
-    return {'username': username, 'password': password};
+    return {
+      'username': username.trim(),
+      'password': password,
+      'device': const Device().getType(),
+      'ipAddress': ipAddress ?? '127.0.0.1',
+    };
   }
 
   // coverage:ignore-start
