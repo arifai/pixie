@@ -4,16 +4,25 @@ codecov:
     wait_for_ci: yes
 
 coverage:
-  range: 60..80
+  range: 65..85
   round: down
   precision: 2
 
   status:
-    patch: false
-    project:
+    patch: 
       default:
+        informational: true
         target: auto
         base: auto
         threshold: 85%
         flags:
-          - unittesting
+          - unit-patch
+
+    project:
+      default:
+        informational: true
+        target: auto
+        base: auto
+        threshold: 85%
+        flags:
+          - unit-project
