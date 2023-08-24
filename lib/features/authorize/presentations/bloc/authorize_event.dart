@@ -1,6 +1,6 @@
 part of 'authorize_bloc.dart';
 
-abstract class AuthorizeEvent extends Equatable {
+sealed class AuthorizeEvent extends Equatable {
   const AuthorizeEvent();
 
   // coverage:ignore-start

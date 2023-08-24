@@ -1,6 +1,6 @@
 part of 'current_user_bloc.dart';
 
-abstract class CurrentUserEvent extends Equatable {
+sealed class CurrentUserEvent extends Equatable {
   const CurrentUserEvent();
 
   // coverage:ignore-start
