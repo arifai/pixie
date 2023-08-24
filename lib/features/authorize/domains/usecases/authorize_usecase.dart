@@ -62,7 +62,7 @@ class AuthParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'username': username,
+      'username': username.trim(),
       'password': password,
       'device': const Device().getType(),
       'ipAddress': ipAddress ?? '127.0.0.1',

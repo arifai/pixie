@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pixie/features/app/presentations/pages/dashboard_page.dart';
 import 'package:pixie/cores/constants/app_routes.dart';
 import 'package:pixie/cores/utils/di.dart';
 import 'package:pixie/features/authorize/presentations/bloc/authorize_bloc.dart';
@@ -16,18 +17,18 @@ class RouteGenerator {
 
   final RouteSettings _settings;
 
-  /// Generate all routes
+  /// Generate all routes.
   Route<dynamic>? gen() {
     return MaterialPageRoute(
       builder: (_) {
-        // final Object? args = _settings.arguments;
-
         switch (_settings.name) {
           case AppRoutes.authorize:
             return BlocProvider(
               create: (_) => di<AuthorizeBloc>(),
               child: const AuthorizePage(),
             );
+          case AppRoutes.dashboard:
+            return const DashboardPage();
           default:
             return const SizedBox();
         }
