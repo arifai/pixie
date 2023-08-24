@@ -14,23 +14,23 @@ class AppNavigator {
 
   final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
 
-  /// Same of `pop()`
+  /// Same as `pop()`
   void pop({Object? argument}) {
     return _navKey.currentState?.pop(argument);
   }
 
-  /// Same of `popAndPushNamed()`
+  /// Same as `popAndPushNamed()`
   Future<dynamic> popTo(String routeName, {Object? arguments}) {
     return _navKey.currentState!
         .popAndPushNamed(routeName, arguments: arguments);
   }
 
-  /// Sam of `pushNamed()`
+  /// Same as `pushNamed()`
   Future<dynamic> navigateTo(String routeName, {Object? arguments}) {
     return _navKey.currentState!.pushNamed(routeName, arguments: arguments);
   }
 
-  /// Same of `pushReplacementNamed()`
+  /// Same as `pushReplacementNamed()`
   Future<dynamic> moveTo(
     String routeName, {
     Object? arguments,
@@ -40,7 +40,7 @@ class AppNavigator {
         .pushReplacementNamed(routeName, arguments: arguments, result: result);
   }
 
-  /// Same of `pushNamedAndRemoveUntil()`
+  /// Same as `pushNamedAndRemoveUntil()`
   Future<dynamic> pushTo(String routeName, {Object? arguments}) {
     return _navKey.currentState!.pushNamedAndRemoveUntil(
       routeName,
