@@ -5,6 +5,7 @@ on:
 
 jobs:
   cleanup:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ github.event.pull_request.number }} PR in ${{ github.repository }} Repository
