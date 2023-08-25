@@ -14,8 +14,10 @@ final class AuthorizeDoAuth extends AuthorizeEvent {
 
   final AuthParams params;
 
+  // coverage:ignore-start
   @override
   List<Object?> get props => [params];
+  // coverage:ignore-end
 }
 
 final class AuthorizeDoUnAuth extends AuthorizeEvent {
@@ -23,8 +25,10 @@ final class AuthorizeDoUnAuth extends AuthorizeEvent {
 
   final String token;
 
+  // coverage:ignore-start
   @override
   List<Object?> get props => [token];
+  // coverage:ignore-end
 }
 
 final class AuthorizeDoRegister extends AuthorizeEvent {
@@ -32,8 +36,10 @@ final class AuthorizeDoRegister extends AuthorizeEvent {
 
   final RegisterParams params;
 
+  // coverage:ignore-start
   @override
   List<Object?> get props => [params];
+  // coverage:ignore-end
 }
 
 final class AuthorizeDoActivate extends AuthorizeEvent {
@@ -41,6 +47,8 @@ final class AuthorizeDoActivate extends AuthorizeEvent {
 
   final ActivationParams params;
 
+  // coverage:ignore-start
   @override
   List<Object?> get props => [params];
+  // coverage:ignore-end
 }
