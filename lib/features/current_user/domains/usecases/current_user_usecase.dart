@@ -4,7 +4,7 @@ import 'package:pixie/cores/usecase/usecase.dart';
 import 'package:pixie/features/current_user/domains/entities/current_user_entity.dart';
 import 'package:pixie/features/current_user/domains/repositories/current_user_repository.dart';
 
-class GetCurrentUserUseCase extends UseCase<CurrentUserEntity, NoParams> {
+class GetCurrentUserUseCase extends UseCase<CurrentUserEntity, void> {
   const GetCurrentUserUseCase(this._repository);
 
   final CurrentUserRepository _repository;

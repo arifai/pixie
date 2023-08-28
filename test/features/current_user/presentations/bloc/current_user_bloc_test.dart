@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
-import 'package:pixie/cores/usecase/usecase.dart';
 import 'package:pixie/features/current_user/domains/entities/current_user_entity.dart';
 import 'package:pixie/features/current_user/presentations/bloc/current_user_bloc.dart';
 
@@ -36,8 +35,7 @@ void main() {
     blocTest(
       'should emit [CurrentUserStatus.initial, CurrentUserStatus.success] when get user is successful',
       build: () {
-        when(() => currentUseCase(const NoParams()))
-            .thenAnswer((_) => TaskEither.of(data));
+        when(() => currentUseCase(null)).thenAnswer((_) => TaskEither.of(data));
 
         return bloc;
       },
@@ -47,13 +45,13 @@ void main() {
         const CurrentUserState(status: CurrentUserStatus.loading),
         CurrentUserState(status: CurrentUserStatus.success, data: data),
       ],
-      verify: (_) => verify(() => currentUseCase(const NoParams())),
+      verify: (_) => verify(() => currentUseCase(null)),
     );
 
     blocTest(
       'should emit [CurrentUserStatus.initial, CurrentUserStatus.failed] when get user is unsuccessful',
       build: () {
-        when(() => currentUseCase(const NoParams()))
+        when(() => currentUseCase(null))
             .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
 
         return bloc;
@@ -64,7 +62,7 @@ void main() {
         const CurrentUserState(status: CurrentUserStatus.loading),
         const CurrentUserState(status: CurrentUserStatus.failed),
       ],
-      verify: (_) => verify(() => currentUseCase(const NoParams())),
+      verify: (_) => verify(() => currentUseCase(null)),
     );
   });
 }

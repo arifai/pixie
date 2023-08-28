@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
-import 'package:pixie/cores/usecase/usecase.dart';
 import 'package:pixie/features/access_token/domains/usecases/access_token_usecase.dart';
 
 import '../../../../mocks/access_token/mock_access_token_repository.dart';
@@ -39,7 +38,7 @@ void main() {
     test('should get the access token', () async {
       when(() => repo.get()).thenAnswer((_) => TaskEither.of(jwt));
 
-      final result = await getUseCase(const NoParams()).run();
+      final result = await getUseCase(null).run();
 
       expect(result, equals(right(jwt)));
 
@@ -50,7 +49,7 @@ void main() {
     test('should remove the access token', () {
       when(() => repo.remove()).thenAnswer((_) => TaskEither.of(true));
 
-      removeUseCase(const NoParams());
+      removeUseCase(null);
 
       verify(() => repo.remove().run());
       verifyNoMoreInteractions(repo);
@@ -72,7 +71,7 @@ void main() {
       when(() => repo.get())
           .thenAnswer((_) => TaskEither.left(const LocalFailure()));
 
-      final result = await getUseCase(const NoParams()).run();
+      final result = await getUseCase(null).run();
 
       expect(result, equals(left(const LocalFailure())));
 
@@ -84,7 +83,7 @@ void main() {
       when(() => repo.remove())
           .thenAnswer((_) => TaskEither.left(const LocalFailure()));
 
-      final result = await removeUseCase(const NoParams()).run();
+      final result = await removeUseCase(null).run();
 
       expect(result, equals(left(const LocalFailure())));
 
