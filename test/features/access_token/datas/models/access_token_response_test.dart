@@ -30,7 +30,13 @@ void main() {
       final AccessTokenResponse result =
           AccessTokenResponse.fromMap(data['result']);
 
-      expect(result, response);
+      expect(result, equals(response));
+    });
+
+    test('should throw FormatException if json data is invalid', () {
+      final Map<String, dynamic> invalid = {};
+
+      expect(() => AccessTokenResponse.fromMap(invalid), throwsFormatException);
     });
   });
 }

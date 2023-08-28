@@ -10,12 +10,23 @@ class CurrentUserResponse extends CurrentUserEntity {
   });
 
   factory CurrentUserResponse.fromMap(Map<String, dynamic> data) {
-    return CurrentUserResponse(
-      fullName: data['fullName'] as String,
-      username: data['username'] as String,
-      email: data['email'] as String,
-      avatar: data['avatar'] as String?,
-      isActive: data['isActive'] as bool,
-    );
+    if (data
+        case {
+          'fullName': String fullName,
+          'username': String username,
+          'email': String email,
+          'avatar': String? avatar,
+          'isActive': bool isActive,
+        }) {
+      return CurrentUserResponse(
+        fullName: fullName,
+        username: username,
+        email: email,
+        avatar: avatar,
+        isActive: isActive,
+      );
+    } else {
+      throw FormatException('Invalid json data: $data', StackTrace.current);
+    }
   }
 }

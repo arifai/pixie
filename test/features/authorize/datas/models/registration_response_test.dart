@@ -22,5 +22,12 @@ void main() {
 
       expect(result, response);
     });
+
+    test('should throw FormatException if json data is invalid', () {
+      final Map<String, dynamic> invalid = {};
+
+      expect(
+          () => RegistrationResponse.fromMap(invalid), throwsFormatException);
+    });
   });
 }

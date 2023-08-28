@@ -7,9 +7,17 @@ class AccessTokenResponse extends AccessTokenEntity {
   });
 
   factory AccessTokenResponse.fromMap(Map<String, dynamic> data) {
-    return AccessTokenResponse(
-      accessToken: data['accessToken'] as String?,
-      refreshToken: data['refreshToken'] as String?,
-    );
+    if (data
+        case {
+          'accessToken': String? accessToken,
+          'refreshToken': String? refreshToken
+        }) {
+      return AccessTokenResponse(
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      );
+    } else {
+      throw FormatException('Invalid json data: $data', StackTrace.current);
+    }
   }
 }

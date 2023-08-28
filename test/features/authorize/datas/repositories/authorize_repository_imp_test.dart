@@ -24,8 +24,8 @@ void main() {
 
   group('AuthorizeRepositoryImp', () {
     final Faker faker = Faker();
-    final AccessTokenResponse response =
-        AccessTokenResponse.fromMap(jsonDecode(reader('access_token.json')));
+    final AccessTokenResponse response = AccessTokenResponse.fromMap(
+        jsonDecode(reader('access_token.json'))['result']);
     final RegistrationResponse registerSuccess = RegistrationResponse.fromMap(
         jsonDecode(reader('register_success.json')));
     AuthParams params = AuthParams(
