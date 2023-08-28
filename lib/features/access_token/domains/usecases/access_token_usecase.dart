@@ -13,7 +13,7 @@ class SaveAccessTokenUseCase extends UseCase<bool, AccessTokenParams> {
   TaskEither<Failure, bool?> call(params) => _repository.save(params);
 }
 
-class GetAccessTokenUseCase extends UseCase<String, NoParams> {
+class GetAccessTokenUseCase extends UseCase<String, void> {
   const GetAccessTokenUseCase(this._repository);
 
   final AccessTokenRepository _repository;
@@ -22,7 +22,7 @@ class GetAccessTokenUseCase extends UseCase<String, NoParams> {
   TaskEither<Failure, String?> call(params) => _repository.get();
 }
 
-class RemoveAccessTokenUseCase extends UseCase<bool, NoParams> {
+class RemoveAccessTokenUseCase extends UseCase<bool, void> {
   const RemoveAccessTokenUseCase(this._repository);
 
   final AccessTokenRepository _repository;

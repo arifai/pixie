@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pixie/cores/errors/failures/failure.dart';
-import 'package:pixie/cores/usecase/usecase.dart';
 import 'package:pixie/features/current_user/domains/entities/current_user_entity.dart';
 import 'package:pixie/features/current_user/domains/usecases/current_user_usecase.dart';
 
@@ -31,7 +30,7 @@ void main() {
         () async {
       when(() => repo.get()).thenAnswer((_) => TaskEither.of(data));
 
-      final result = await getUseCase(const NoParams()).run();
+      final result = await getUseCase(null).run();
 
       expect(result, equals(right(data)));
       verify(() => repo.get());
@@ -43,7 +42,7 @@ void main() {
       when(() => repo.get())
           .thenAnswer((_) => TaskEither.left(const NetworkFailure()));
 
-      final result = await getUseCase(const NoParams()).run();
+      final result = await getUseCase(null).run();
 
       expect(result, equals(left(const NetworkFailure())));
       verify(() => repo.get());

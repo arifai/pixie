@@ -7,7 +7,7 @@ import 'package:pixie/cores/errors/failures/failure.dart';
 ///
 /// [T] represents what type of data to return.
 ///
-/// [P] what type of parameter is used, must be an [Object].
+/// [P] what type of parameter is used.
 ///
 /// ```dart
 /// class UserUseCase extends UseCase<UserEntity, UserParams> {
@@ -18,7 +18,7 @@ import 'package:pixie/cores/errors/failures/failure.dart';
 /// }
 /// ```
 /// {@endtemplate}
-abstract class UseCase<T, P extends Object> {
+abstract class UseCase<T, P extends dynamic> {
   /// {@macro usecase}
   const UseCase();
 
@@ -29,15 +29,18 @@ abstract class UseCase<T, P extends Object> {
   TaskEither<Failure, T?> call(P params);
 }
 
+// coverage:ignore-start
 /// {@template no_params}
 /// A class to represent does not require parameters in the usecase.
 /// {@endtemplate}
+@Deprecated(
+    '''This class is no longer needed. Use void instead of [NoParams] class. 
+This class will be removed in the next version.''')
 class NoParams extends Equatable {
   /// {@macro no_params}
   const NoParams();
 
-  // coverage:ignore-start
   @override
   List<Object?> get props => [];
-  // coverage:ignore-end
 }
+// coverage:ignore-end
