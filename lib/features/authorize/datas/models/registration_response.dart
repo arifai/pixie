@@ -4,6 +4,10 @@ class RegistrationResponse extends RegistrationEntity {
   const RegistrationResponse(super.token);
 
   factory RegistrationResponse.fromMap(Map<String, dynamic> data) {
-    return RegistrationResponse(data['result'] as String?);
+    if (data case {'result': String? token}) {
+      return RegistrationResponse(token);
+    } else {
+      throw FormatException('Invalid json data: $data', StackTrace.current);
+    }
   }
 }

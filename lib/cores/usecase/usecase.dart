@@ -7,7 +7,7 @@ import 'package:pixie/cores/errors/failures/failure.dart';
 ///
 /// [T] represents what type of data to return.
 ///
-/// [P] what type of parameter is used. Must be an object.
+/// [P] what type of parameter is used, must be an [Object].
 ///
 /// ```dart
 /// class UserUseCase extends UseCase<UserEntity, UserParams> {

@@ -7,7 +7,7 @@ abstract class Failure extends Equatable {
 
   // coverage:ignore-start
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
   // coverage:ignore-end
 }
 
