@@ -7,6 +7,7 @@ import 'package:pixie/cores/constants/app_routes.dart';
 import 'package:pixie/cores/utils/di.dart';
 import 'package:pixie/features/authorize/presentations/bloc/authorize_bloc.dart';
 import 'package:pixie/features/authorize/presentations/pages/authorize_page.dart';
+import 'package:pixie/features/onboarding/presentations/pages/onboarding_page.dart';
 
 /// {@template route_generator}
 /// Custom route app system.
@@ -22,6 +23,8 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) {
         switch (_settings.name) {
+          case AppRoutes.onboarding:
+            return const OnBoardingPage();
           case AppRoutes.authorize:
             return BlocProvider(
               create: (_) => di<AuthorizeBloc>(),

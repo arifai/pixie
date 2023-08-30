@@ -29,7 +29,7 @@ class PixieApp extends StatelessWidget {
       title: 'Pixie',
       theme: const AppTheme().base,
       navigatorKey: navigator.navigatorKey,
-      initialRoute: AppRoutes.authorize,
+      initialRoute: AppRoutes.onboarding,
       onGenerateRoute: (settings) => RouteGenerator(settings).gen(),
     );
   }
