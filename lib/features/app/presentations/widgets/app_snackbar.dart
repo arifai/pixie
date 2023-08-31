@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Default app [SnackBar] widget.
 class AppSnackBar {
+  // coverage:ignore-start
   AppSnackBar._();
+  // coverage:ignore-end
 
   /// Snackbar widget for inside listener.
   static void show(
