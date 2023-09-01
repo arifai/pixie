@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixie/cores/constants/app_keys.dart';
 
 /// Default app [SnackBar] widget.
 class AppSnackBar {
@@ -14,6 +15,7 @@ class AppSnackBar {
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        key: const Key(AppKeys.appSnackBar),
         elevation: 0.0,
         content: Row(
           children: [
