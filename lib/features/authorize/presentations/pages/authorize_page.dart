@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pixie/cores/constants/app_keys.dart';
 import 'package:pixie/cores/constants/app_routes.dart';
 import 'package:pixie/cores/utils/app_navigator.dart';
 import 'package:pixie/cores/utils/device.dart';
@@ -86,6 +87,7 @@ class _AuthorizePageState extends State<AuthorizePage> {
                   const FlutterLogo(size: 100),
                   const SizedBox(height: 20),
                   TextFormField(
+                    key: const Key(AppKeys.username),
                     controller: _usernameCtl,
                     validator: _usernameValidator,
                     decoration: const InputDecoration(
@@ -95,6 +97,7 @@ class _AuthorizePageState extends State<AuthorizePage> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    key: const Key(AppKeys.password),
                     controller: _passwordCtl,
                     obscureText: true,
                     validator: _passwordValidator,
@@ -105,6 +108,7 @@ class _AuthorizePageState extends State<AuthorizePage> {
                   ),
                   const SizedBox(height: 40),
                   ElevatedButton(
+                    key: const Key(AppKeys.signInButton),
                     onPressed: _onSignInButtonPressed,
                     child: const Text('Sign In'),
                   ),
