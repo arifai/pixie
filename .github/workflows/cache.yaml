@@ -1,7 +1,9 @@
 name: Cleanup Caches
 on:
   pull_request:
-    types: [closed]
+    types: 
+      - open
+      - closed
 
 jobs:
   cleanup:
