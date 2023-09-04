@@ -1,3 +1,4 @@
+// coverage:ignore-file
 /// A class for widget application keys.
 class AppKeys {
   const AppKeys._();
