@@ -7,7 +7,7 @@ import 'package:pixie/cores/utils/di.dart';
 import 'package:pixie/features/authorize/presentations/bloc/authorize_bloc.dart';
 import 'package:pixie/features/authorize/presentations/pages/authorize_page.dart';
 
-import '../../../../../fixtures/material_wrapper.dart';
+import '../../../../fixtures/material_wrapper.dart';
 
 void main() {
   setUp(() async => await setup(true));
@@ -16,6 +16,7 @@ void main() {
     final Faker faker = Faker();
     final String username = faker.internet.userName();
     final String password = faker.internet.password();
+    // const Key appSnackBarFindByKey = Key(AppKeys.appSnackBar);
     const Key usernameFindByKey = Key(AppKeys.username);
     const Key passwordFindByKey = Key(AppKeys.password);
     const Duration oneSecond = Duration(seconds: 1);
@@ -34,7 +35,9 @@ void main() {
       )));
 
       expect(
-          find.byKey(const Key(AppKeys.signInButton)), equals(findsOneWidget));
+        find.byKey(const Key(AppKeys.signInButton)),
+        equals(findsOneWidget),
+      );
     });
 
     testWidgets('has Username TextFormField and enter username text',
@@ -159,23 +162,27 @@ void main() {
       expect(passwordError, equals(findsOneWidget));
     });
 
-    // testWidgets('show AppSnackBar when state is AuthorizeStatus.failed',
+    // testWidgets('show AppSnackBar when state is AuthorizeStatus.loading',
     //     (tester) async {
-    //   final AuthorizeEvent event =
-    //       AuthorizeDoAuth(AuthParams(username: username, password: password));
-    //   when(() => bloc.state)
-    //       .thenReturn(const AuthorizeState(status: AuthorizeStatus.failed));
-    //   when(() => bloc.add(AuthorizeDoAuth(
-    //           AuthParams(username: username, password: password))))
-    //       .thenAnswer((_) {});
-
+    //   whenListen(
+    //     bloc,
+    //     Stream.fromIterable([
+    //       const AuthorizeState(),
+    //       const AuthorizeState(status: AuthorizeStatus.loading)
+    //     ]),
+    //   );
+    //   when(() => bloc.state).thenReturn(
+    //     const AuthorizeState(status: AuthorizeStatus.loading),
+    //   );
     //   await tester.pumpWidget(materialWrapper(BlocProvider(
     //     create: (context) => di<AuthorizeBloc>(),
     //     child: const AuthorizePage(),
     //   )));
     //   await tester.tap(find.byKey(const Key(AppKeys.signInButton)));
-    //   expect(find.byKey(appSnackBarFindByKey), equals(findsOneWidget));
-    //   verify(() => bloc.add(event)).called(1);
+    //   expect(find.byKey(appSnackBarFindByKey), equals(findsNothing));
+    //   verify(() => bloc.add(
+    //         AuthorizeDoAuth(AuthParams(username: username, password: password)),
+    //       )).called(1);
     // });
   });
 }
